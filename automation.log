@@ -16,3 +16,9 @@
 2025-11-20 20:37:15,721 - INFO - Skipping gokuldas@finlytyx.com - Already Sent at 2025-11-20 20:31:11
 2025-11-20 20:37:15,722 - INFO - Skipping gokuldaskannadas@gmail.com - Future date
 2025-11-20 20:37:15,795 - INFO - Run completed. Total emails sent: 0
+2025-11-20 21:18:42,995 - INFO - Starting email automation run.
+2025-11-20 21:18:46,154 - INFO - Processing for date: 2025-11-20
+2025-11-20 21:18:46,155 - INFO - Skipping rajan@finlytyx.com - Date passed
+2025-11-20 21:18:46,155 - INFO - Skipping gokuldas@finlytyx.com - Already Sent at 2025-11-20 20:31:11
+2025-11-20 21:18:46,159 - INFO - Skipping gokuldaskannadas@gmail.com - Future date
+2025-11-20 21:18:46,232 - INFO - Run completed. Total emails sent: 0
