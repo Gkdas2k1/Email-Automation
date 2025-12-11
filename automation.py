@@ -15,7 +15,7 @@ logging.basicConfig(
 def send_emails():
     # Configuration
     excel_file = 'Test Mail.xlsx'
-    msg_template_path = os.path.abspath('Customer (1) (1).msg')
+    msg_template_path = os.path.abspath('We help companies better leverage digital and technology (1) (1).msg')
     email_column = 'Mail ID'
     date_column = 'Date'
     status_column = 'Status'
