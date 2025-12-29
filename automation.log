@@ -73,3 +73,16 @@
 2025-12-09 15:37:14,560 - INFO - Sent email to: rajan@finlytyx.com (Sent at 2025-12-09 15:37:14)
 2025-12-09 15:37:16,590 - INFO - Sent email to: gokuldas@finlytyx.com (Sent at 2025-12-09 15:37:16)
 2025-12-09 15:37:18,625 - INFO - Run completed. Total emails sent: 2
+2025-12-29 11:57:02,298 - INFO - Processing for date: 2025-12-29
+2025-12-29 11:57:02,302 - INFO - Skipping rajan@finlytyx.com - Already Sent at 2025-12-09 15:37:14
+2025-12-29 11:57:02,303 - INFO - Skipping gokuldas@finlytyx.com - Already Sent at 2025-12-09 15:37:16
+2025-12-29 11:57:26,781 - INFO - Processing for date: 2025-12-29
+2025-12-29 11:59:00,916 - INFO - Processing for date: 2025-12-29
+2025-12-29 11:59:20,992 - INFO - Processing for date: 2025-12-29
+2025-12-29 11:59:21,219 - INFO - Sent email to rajan@finlytyx.com using Customer Mail New.msg
+2025-12-29 11:59:23,302 - INFO - Run completed. Total emails sent: 1
+2025-12-29 11:59:23,340 - INFO - Sent email to gokuldas@finlytyx.com using Power BI.msg
+2025-12-29 11:59:25,362 - INFO - Run completed. Total emails sent: 2
+2025-12-29 11:59:35,323 - INFO - Processing for date: 2025-12-29
+2025-12-29 11:59:35,327 - INFO - Skipping rajan@finlytyx.com - Already Sent at 2025-12-29 11:59:21
+2025-12-29 11:59:35,328 - INFO - Skipping gokuldas@finlytyx.com - Already Sent at 2025-12-29 11:59:23

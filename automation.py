@@ -13,32 +13,29 @@ logging.basicConfig(
 )
 
 def send_emails():
-    # Configuration
+    # Updated configuration
     excel_file = 'Test Mail.xlsx'
-    msg_template_path = os.path.abspath('We help companies better leverage digital and technology (1) (1).msg')
+    template_dir = 'Mail Templates'
     email_column = 'Mail ID'
+    template_column = 'Templates'
     date_column = 'Date'
     status_column = 'Status'
-    
-    print(f"Template Path: {msg_template_path}")
-    logging.info("Starting email automation run.")
-    
-    # Check if files exist
-    if not os.path.exists(excel_file):
-        msg = f"Error: Excel file '{excel_file}' not found."
-        print(msg)
-        logging.error(msg)
-        return
-    if not os.path.exists(msg_template_path):
-        msg = f"Error: Template file '{msg_template_path}' not found."
+
+    # Validate template directory
+    if not os.path.exists(template_dir):
+        msg = f"Error: Template directory '{template_dir}' not found"
         print(msg)
         logging.error(msg)
         return
 
-    # Load Excel
+    # Load Excel with sheet specification
     try:
-        df = pd.read_excel(excel_file)
-        print(f"Loaded {len(df)} rows from {excel_file}")
+        df = pd.read_excel(excel_file, sheet_name=0)
+        if template_column not in df.columns:
+            msg = f"Column '{template_column}' missing in Excel"
+            print(msg)
+            logging.error(msg)
+            return
     except Exception as e:
         msg = f"Error reading Excel file: {e}"
         print(msg)
@@ -71,6 +68,9 @@ def send_emails():
     # Initialize Status column if not exists
     if status_column not in df.columns:
         df[status_column] = ''
+    else:
+        # Convert to string to avoid dtype warnings
+        df[status_column] = df[status_column].astype(str)
 
     emails_sent = 0
 
@@ -115,48 +115,52 @@ def send_emails():
             
         # 3. Send Email (Date is Today)
         try:
-            # Load the template for each email to ensure a fresh copy
-            mail = outlook.CreateItemFromTemplate(msg_template_path)
+            template_name = row[template_column]
+            if pd.isna(template_name):
+                df.at[index, status_column] = 'Missing Template Name'
+                continue
+
+            # Handle template name with or without .msg extension
+            if not template_name.lower().endswith('.msg'):
+                template_name = f"{template_name}.msg"
             
-            # Set recipient
+            msg_path = os.path.abspath(os.path.join(template_dir, template_name))
+            if not os.path.exists(msg_path):
+                df.at[index, status_column] = f'Template Not Found: {template_name}'
+                continue
+
+            # Load template
+            mail = outlook.CreateItemFromTemplate(msg_path)
             mail.To = recipient_email
-            
-            # Send
             mail.Send()
-            
-            # Update status with TIMESTAMP
+
+            # Update status
             timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             status_msg = f'Sent at {timestamp}'
             df.at[index, status_column] = status_msg
-            
-            msg = f"Sent email to: {recipient_email} ({status_msg})"
-            print(msg)
-            logging.info(msg)
-            
+
+            logging.info(f"Sent email to {recipient_email} using {template_name}")
             emails_sent += 1
-            
-            # Rate limiting
-            time.sleep(2) 
-            
+            time.sleep(2)
+
         except Exception as e:
-            msg = f"Failed to send to {recipient_email}: {e}"
-            print(msg)
-            logging.error(msg)
+            error_msg = f"Failed sending to {recipient_email}: {str(e)}"
+            logging.error(error_msg)
             df.at[index, status_column] = f'Failed: {e}'
 
-    # Save updated Excel file
-    try:
-        df.to_excel(excel_file, index=False)
-        print(f"Updated Excel file with status. Total emails sent: {emails_sent}")
-        logging.info(f"Run completed. Total emails sent: {emails_sent}")
-    except PermissionError:
-        msg = f"Error: Could not save '{excel_file}'. Please close the file if it is open."
-        print(msg)
-        logging.error(msg)
-    except Exception as e:
-        msg = f"Error saving Excel file: {e}"
-        print(msg)
-        logging.error(msg)
+        # Save updated Excel file
+        try:
+            df.to_excel(excel_file, index=False)
+            print(f"Updated Excel file with status. Total emails sent: {emails_sent}")
+            logging.info(f"Run completed. Total emails sent: {emails_sent}")
+        except PermissionError:
+            msg = f"Error: Could not save '{excel_file}'. Please close the file if it is open."
+            print(msg)
+            logging.error(msg)
+        except Exception as e:
+            msg = f"Error saving Excel file: {e}"
+            print(msg)
+            logging.error(msg)
 
 if __name__ == "__main__":
     send_emails()
