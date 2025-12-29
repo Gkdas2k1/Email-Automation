@@ -86,3 +86,7 @@
 2025-12-29 11:59:35,323 - INFO - Processing for date: 2025-12-29
 2025-12-29 11:59:35,327 - INFO - Skipping rajan@finlytyx.com - Already Sent at 2025-12-29 11:59:21
 2025-12-29 11:59:35,328 - INFO - Skipping gokuldas@finlytyx.com - Already Sent at 2025-12-29 11:59:23
+2025-12-29 12:32:08,456 - INFO - Processing for date: 2025-12-29
+2025-12-29 12:32:08,459 - INFO - Skipping rajan@finlytyx.com - Already Sent at 2025-12-29 11:59:21
+2025-12-29 12:32:08,460 - INFO - Skipping gokuldas@finlytyx.com - Already Sent at 2025-12-29 11:59:23
+2025-12-29 12:32:08,460 - INFO - Run completed. Total emails sent: 0
