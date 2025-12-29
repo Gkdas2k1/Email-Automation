@@ -1,5 +1,0 @@
-# Configuration
-excel_file = 'Test Mail.xlsx'
-template_dir = 'Mail Templates'  # New template directory
-email_column = 'Mail ID'
-template_column = 'Templates'  # New template column name
