@@ -90,3 +90,15 @@
 2025-12-29 12:32:08,459 - INFO - Skipping rajan@finlytyx.com - Already Sent at 2025-12-29 11:59:21
 2025-12-29 12:32:08,460 - INFO - Skipping gokuldas@finlytyx.com - Already Sent at 2025-12-29 11:59:23
 2025-12-29 12:32:08,460 - INFO - Run completed. Total emails sent: 0
+2026-02-03 17:07:27,156 - INFO - Processing for date: 2026-02-03
+2026-02-03 17:07:27,157 - INFO - Skipping rajan@finlytyx.com - Already Sent at 2025-12-29 11:59:21
+2026-02-03 17:07:27,158 - INFO - Skipping gokuldas@finlytyx.com - Already Sent at 2025-12-29 11:59:23
+2026-02-03 17:07:27,158 - INFO - Run completed. Total emails sent: 0
+2026-02-03 17:08:50,516 - INFO - Processing for date: 2026-02-03
+2026-02-03 17:08:50,519 - INFO - Skipping adil@finlytyx.com - Future date
+2026-02-03 17:08:50,519 - INFO - Skipping mashal@finlytyx.com - Future date
+2026-02-03 17:08:50,519 - INFO - Run completed. Total emails sent: 0
+2026-02-03 17:09:30,326 - INFO - Processing for date: 2026-02-03
+2026-02-03 17:09:30,366 - INFO - Sent email to adil@finlytyx.com using Customer Mail New.msg
+2026-02-03 17:09:32,458 - INFO - Sent email to mashal@finlytyx.com using Power BI.msg
+2026-02-03 17:09:34,498 - INFO - Run completed. Total emails sent: 2
