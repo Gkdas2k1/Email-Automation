@@ -102,3 +102,31 @@
 2026-02-03 17:09:30,366 - INFO - Sent email to adil@finlytyx.com using Customer Mail New.msg
 2026-02-03 17:09:32,458 - INFO - Sent email to mashal@finlytyx.com using Power BI.msg
 2026-02-03 17:09:34,498 - INFO - Run completed. Total emails sent: 2
+2026-02-19 17:19:56,011 - INFO - Processing for date: 2026-02-19
+2026-02-19 17:19:56,658 - INFO - Sent email to adil@finlytyx.com using Customer Mail New.msg
+2026-02-19 17:19:58,712 - INFO - Sent email to rajan@finlytyx.com using Customer Mail New.msg
+2026-02-19 17:20:00,751 - INFO - Run completed. Total emails sent: 2
+2026-02-24 10:25:18,312 - INFO - Processing for date: 2026-02-24
+2026-02-24 10:25:18,453 - INFO - Sent email to adil@finlytyx.com using Customer Mail New.msg
+2026-02-24 10:25:20,526 - INFO - Sent email to swathi@finlytyx.com using Followup.msg
+2026-02-24 10:25:22,605 - INFO - Sent email to shanitha@finlytyx.com using Jedox Partners.msg
+2026-02-24 10:25:24,676 - INFO - Sent email to shameem@finlytyx.com using Power BI.msg
+2026-02-24 10:25:26,705 - INFO - Run completed. Total emails sent: 4
+2026-02-24 10:29:17,622 - INFO - Processing for date: 2026-02-24
+2026-02-24 10:29:17,627 - INFO - Skipping adil@finlytyx.com - Already Sent at 2026-02-24 10:25:18
+2026-02-24 10:29:17,744 - INFO - Sent email to swathi@finlytyx.com using Offer Mail.msg
+2026-02-24 10:29:19,773 - INFO - Skipping shanitha@finlytyx.com - Already Sent at 2026-02-24 10:25:22
+2026-02-24 10:29:19,774 - INFO - Skipping shameem@finlytyx.com - Already Sent at 2026-02-24 10:25:24
+2026-02-24 10:29:19,775 - INFO - Run completed. Total emails sent: 1
+2026-02-24 10:30:18,633 - INFO - Processing for date: 2026-02-24
+2026-02-24 10:30:18,637 - INFO - Skipping adil@finlytyx.com - Already Sent at 2026-02-24 10:25:18
+2026-02-24 10:30:18,637 - INFO - Skipping swathy@finlytyx.com - Already Sent at 2026-02-24 10:29:17
+2026-02-24 10:30:18,638 - INFO - Skipping shanitha@finlytyx.com - Already Sent at 2026-02-24 10:25:22
+2026-02-24 10:30:18,638 - INFO - Skipping shameem@finlytyx.com - Already Sent at 2026-02-24 10:25:24
+2026-02-24 10:30:18,638 - INFO - Run completed. Total emails sent: 0
+2026-02-24 10:30:28,677 - INFO - Processing for date: 2026-02-24
+2026-02-24 10:30:28,683 - INFO - Skipping adil@finlytyx.com - Already Sent at 2026-02-24 10:25:18
+2026-02-24 10:30:28,776 - INFO - Sent email to swathy@finlytyx.com using Offer Mail.msg
+2026-02-24 10:30:30,806 - INFO - Skipping shanitha@finlytyx.com - Already Sent at 2026-02-24 10:25:22
+2026-02-24 10:30:30,806 - INFO - Skipping shameem@finlytyx.com - Already Sent at 2026-02-24 10:25:24
+2026-02-24 10:30:30,808 - INFO - Run completed. Total emails sent: 1
