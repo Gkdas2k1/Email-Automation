@@ -130,3 +130,26 @@
 2026-02-24 10:30:30,806 - INFO - Skipping shanitha@finlytyx.com - Already Sent at 2026-02-24 10:25:22
 2026-02-24 10:30:30,806 - INFO - Skipping shameem@finlytyx.com - Already Sent at 2026-02-24 10:25:24
 2026-02-24 10:30:30,808 - INFO - Run completed. Total emails sent: 1
+2026-02-27 12:35:39,220 - INFO - Processing for date: 2026-02-27
+2026-02-27 12:35:39,224 - INFO - Skipping adil@finlytyx.com - Already Sent at 2026-02-24 10:25:18
+2026-02-27 12:35:39,224 - INFO - Skipping swathy@finlytyx.com - Already Sent at 2026-02-24 10:30:28
+2026-02-27 12:35:39,224 - INFO - Skipping shanitha@finlytyx.com - Already Sent at 2026-02-24 10:25:22
+2026-02-27 12:35:39,224 - INFO - Skipping shameem@finlytyx.com - Already Sent at 2026-02-24 10:25:24
+2026-02-27 12:35:39,224 - INFO - Run completed. Total emails sent: 0
+2026-02-27 12:35:53,834 - INFO - Processing for date: 2026-02-27
+2026-02-27 12:35:53,836 - ERROR - Error converting Date column: unconverted data remains when parsing with format "%Y-%m-%d": " 00:00:00". You might want to try:
+    - passing `format` if your strings have a consistent format;
+    - passing `format='ISO8601'` if your strings are all ISO8601 but not necessarily in exactly the same format;
+    - passing `format='mixed'`, and the format will be inferred for each element individually. You might want to use `dayfirst` alongside this.
+2026-02-27 12:36:02,899 - INFO - Processing for date: 2026-02-27
+2026-02-27 12:36:02,987 - INFO - Sent email to adil@finlytyx.com using Customer Mail New.msg
+2026-02-27 12:36:05,040 - INFO - Skipping swathy@finlytyx.com - Already Sent at 2026-02-24 10:30:28
+2026-02-27 12:36:05,040 - INFO - Skipping shanitha@finlytyx.com - Already Sent at 2026-02-24 10:25:22
+2026-02-27 12:36:05,041 - INFO - Skipping shameem@finlytyx.com - Already Sent at 2026-02-24 10:25:24
+2026-02-27 12:36:05,041 - INFO - Run completed. Total emails sent: 1
+2026-02-27 12:37:51,624 - INFO - Processing for date: 2026-02-27
+2026-02-27 12:37:51,722 - INFO - Sent email to adil@finlytyx.com using Customer Mail New.msg
+2026-02-27 12:37:53,836 - INFO - Sent email to swathy@finlytyx.com using Offer Mail.msg
+2026-02-27 12:37:55,992 - INFO - Sent email to shanitha@finlytyx.com using Jedox Partners.msg
+2026-02-27 12:37:58,134 - INFO - Sent email to shameem@finlytyx.com using Power BI.msg
+2026-02-27 12:38:00,164 - INFO - Run completed. Total emails sent: 4

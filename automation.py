@@ -32,11 +32,12 @@ def send_emails():
     template_column = 'Templates'
     date_column = 'Date'
     status_column = 'Status'
+    name_column = 'Name'
 
     # Validate template directory
     if not os.path.exists(template_dir):
         msg = f"Error: Template directory '{template_dir}' not found"
-        print(f"{Colors.RED}{Colors.BOLD}❌ {msg}{Colors.ENDC}")
+        print(f"{Colors.RED}{Colors.BOLD}[X] {msg}{Colors.ENDC}")
         logging.error(msg)
         return
 
@@ -45,12 +46,12 @@ def send_emails():
         df = pd.read_excel(excel_file, sheet_name=0)
         if template_column not in df.columns:
             msg = f"Column '{template_column}' missing in Excel"
-            print(f"{Colors.RED}{Colors.BOLD}❌ {msg}{Colors.ENDC}")
+            print(f"{Colors.RED}{Colors.BOLD}[X] {msg}{Colors.ENDC}")
             logging.error(msg)
             return
     except Exception as e:
         msg = f"Error reading Excel file: {e}"
-        print(f"{Colors.RED}{Colors.BOLD}❌ {msg}{Colors.ENDC}")
+        print(f"{Colors.RED}{Colors.BOLD}[X] {msg}{Colors.ENDC}")
         logging.error(msg)
         return
 
@@ -59,22 +60,22 @@ def send_emails():
         outlook = win32.Dispatch('Outlook.Application')
     except Exception as e:
         msg = f"Error initializing Outlook: {e}"
-        print(f"{Colors.RED}{Colors.BOLD}❌ {msg}{Colors.ENDC}")
+        print(f"{Colors.RED}{Colors.BOLD}[X] {msg}{Colors.ENDC}")
         logging.error(msg)
         return
 
     # Get today's date (normalized to midnight for comparison)
     today = pd.Timestamp.now().normalize()
-    print(f"\n{Colors.CYAN}{Colors.BOLD}📧 Email Automation Started{Colors.ENDC}")
-    print(f"{Colors.BLUE}📅 Processing for date: {today.date()}{Colors.ENDC}\n")
+    print(f"\n{Colors.CYAN}{Colors.BOLD}Email Automation Started{Colors.ENDC}")
+    print(f"{Colors.BLUE}Date: {today.date()}{Colors.ENDC}\n")
     logging.info(f"Processing for date: {today.date()}")
 
     # Ensure Date column is datetime
     try:
-        df[date_column] = pd.to_datetime(df[date_column])
+        df[date_column] = pd.to_datetime(df[date_column], errors='coerce')
     except Exception as e:
         msg = f"Error converting Date column: {e}"
-        print(f"{Colors.RED}{Colors.BOLD}❌ {msg}{Colors.ENDC}")
+        print(f"{Colors.RED}{Colors.BOLD}[X] {msg}{Colors.ENDC}")
         logging.error(msg)
         return
 
@@ -90,6 +91,7 @@ def send_emails():
     # Iterate and send
     for index, row in df.iterrows():
         recipient_email = row[email_column]
+        recipient_name = row[name_column] if name_column in df.columns else ""
         scheduled_date = row[date_column]
         current_status = str(row[status_column]) if not pd.isna(row[status_column]) else ""
         
@@ -99,7 +101,7 @@ def send_emails():
         # 1. Check if ALREADY SENT
         if "Sent at" in current_status or "Sent on" in current_status:
             msg = f"Skipping {recipient_email} - Already {current_status}"
-            print(f"{Colors.YELLOW}⏭️  {msg}{Colors.ENDC}")
+            print(f"{Colors.YELLOW}[>>] {msg}{Colors.ENDC}")
             logging.info(msg)
             continue
             
@@ -114,7 +116,7 @@ def send_emails():
             # Future Date
             status_msg = f"Not Sent: Will send on {scheduled_date.date()}"
             df.at[index, status_column] = status_msg
-            print(f"{Colors.YELLOW}⏰ Skipping {recipient_email} ({status_msg}){Colors.ENDC}")
+            print(f"{Colors.YELLOW}[WAIT] Skipping {recipient_email} ({status_msg}){Colors.ENDC}")
             logging.info(f"Skipping {recipient_email} - Future date")
             continue
             
@@ -122,7 +124,7 @@ def send_emails():
             # Past Date (and not sent)
             status_msg = f"Not Sent: Date passed ({scheduled_date.date()})"
             df.at[index, status_column] = status_msg
-            print(f"{Colors.YELLOW}⏳ Skipping {recipient_email} ({status_msg}){Colors.ENDC}")
+            print(f"{Colors.YELLOW}[WAIT] Skipping {recipient_email} ({status_msg}){Colors.ENDC}")
             logging.info(f"Skipping {recipient_email} - Date passed")
             continue
             
@@ -145,6 +147,31 @@ def send_emails():
             # Load template
             mail = outlook.CreateItemFromTemplate(msg_path)
             mail.To = recipient_email
+
+            # Personalize greeting
+            name_to_use = str(recipient_name).strip() if not pd.isna(recipient_name) and str(recipient_name).strip() else ""
+            
+            if name_to_use:
+                greeting = f"Hi {name_to_use},"
+                placeholders = ["Hi Team,", "Hi Team", "Dear sir,", "Dear sir", "Dear Sir,", "Dear Sir"]
+                
+                # Update HTMLBody ONLY to preserve images and formatting
+                found_placeholder_html = False
+                for p in placeholders:
+                    if p in mail.HTMLBody:
+                        # Simple direct replace for HTML
+                        mail.HTMLBody = mail.HTMLBody.replace(p, greeting)
+                        found_placeholder_html = True
+                        break
+                
+                if not found_placeholder_html:
+                    # Prepend to HTMLBody, usually after <body> tag if exists, else just at start
+                    if "<body" in mail.HTMLBody.lower():
+                        import re
+                        mail.HTMLBody = re.sub(r'(<body[^>]*>)', rf'\1<p>{greeting}</p>', mail.HTMLBody, flags=re.IGNORECASE)
+                    else:
+                        mail.HTMLBody = f"<p>{greeting}</p>{mail.HTMLBody}"
+
             mail.Send()
 
             # Update status
@@ -152,7 +179,7 @@ def send_emails():
             status_msg = f'Sent at {timestamp}'
             df.at[index, status_column] = status_msg
 
-            print(f"{Colors.GREEN}{Colors.BOLD}✅ Email sent to {recipient_email}{Colors.ENDC}")
+            print(f"{Colors.GREEN}{Colors.BOLD}[OK] Email sent to {recipient_email}{Colors.ENDC}")
             logging.info(f"Sent email to {recipient_email} using {template_name}")
             emails_sent += 1
             time.sleep(2)
@@ -160,7 +187,7 @@ def send_emails():
         except Exception as e:
             error_msg = f"Failed sending to {recipient_email}: {str(e)}"
             logging.error(error_msg)
-            print(f"{Colors.RED}❌ {error_msg}{Colors.ENDC}")
+            print(f"{Colors.RED}[X] {error_msg}{Colors.ENDC}")
             df.at[index, status_column] = f'Failed: {e}'
 
         # Save updated Excel file
@@ -168,16 +195,16 @@ def send_emails():
             df.to_excel(excel_file, index=False)
         except PermissionError:
             msg = f"Error: Could not save '{excel_file}'. Please close the file if it is open."
-            print(f"{Colors.RED}{Colors.BOLD}❌ {msg}{Colors.ENDC}")
+            print(f"{Colors.RED}{Colors.BOLD}[X] {msg}{Colors.ENDC}")
             logging.error(msg)
         except Exception as e:
             msg = f"Error saving Excel file: {e}"
-            print(f"{Colors.RED}{Colors.BOLD}❌ {msg}{Colors.ENDC}")
+            print(f"{Colors.RED}{Colors.BOLD}[X] {msg}{Colors.ENDC}")
             logging.error(msg)
 
     print(f"\n{Colors.GREEN}{Colors.BOLD}{'='*60}{Colors.ENDC}")
-    print(f"{Colors.GREEN}{Colors.BOLD}✨ Run Completed Successfully!{Colors.ENDC}")
-    print(f"{Colors.GREEN}{Colors.BOLD}📨 Total emails sent: {emails_sent}{Colors.ENDC}")
+    print(f"{Colors.GREEN}{Colors.BOLD}Run Completed Successfully!{Colors.ENDC}")
+    print(f"{Colors.GREEN}{Colors.BOLD}Total emails sent: {emails_sent}{Colors.ENDC}")
     print(f"{Colors.GREEN}{Colors.BOLD}{'='*60}{Colors.ENDC}\n")
     logging.info(f"Run completed. Total emails sent: {emails_sent}")
 
