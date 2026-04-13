@@ -153,3 +153,9 @@
 2026-02-27 12:37:55,992 - INFO - Sent email to shanitha@finlytyx.com using Jedox Partners.msg
 2026-02-27 12:37:58,134 - INFO - Sent email to shameem@finlytyx.com using Power BI.msg
 2026-02-27 12:38:00,164 - INFO - Run completed. Total emails sent: 4
+2026-04-13 23:47:29,471 - INFO - Processing for date: 2026-04-13
+2026-04-13 23:47:29,477 - INFO - Skipping gokuldaskannadas@gmail.com - Future date
+2026-04-13 23:47:29,478 - INFO - Run completed. Total emails sent: 0
+2026-04-13 23:48:21,574 - INFO - Processing for date: 2026-04-13
+2026-04-13 23:48:22,336 - INFO - Sent email to gokuldaskannadas@gmail.com using Customer Mail New.msg
+2026-04-13 23:48:24,401 - INFO - Run completed. Total emails sent: 1
